@@ -5,7 +5,7 @@ Code API is subject to change. Use with caution.
 
 ## Usage
 
-TODO.
+See [the example code](example/main.dart) to get started using this library.
 
 ## Features and bugs
 
