@@ -38,6 +38,11 @@ class CachedSteamClient extends SteamClient {
   }
 
   @override
+  Future<CommunityProfile> getProfile(String profileId) async {
+    return _profilesCache.get(profileId);
+  }
+
+  @override
   Future<CommunityGroup> getGroup({String name, String id}) async {
 
     // only one of {name, id} may be set

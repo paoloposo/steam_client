@@ -60,6 +60,14 @@ class SteamClient {
     }
   }
 
+  /// Get information about a single Steam profile.
+  ///
+  /// Uses [getProfiles] internally.
+  Future<CommunityProfile> getProfile(String profileId) async {
+
+    return (await getProfiles([profileId])).first;
+  }
+
   /// Get the list of friends of a profile.
   Future<List<CommunityFriend>> getFriends(String profileId) async {
 
