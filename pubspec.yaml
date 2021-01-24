@@ -1,5 +1,5 @@
 name: steam_client
-description: A client library for the Steam web API.
+description: A client library for getting community and store resources from the Steam Web API.
 repository: https://github.com/paoloposo/steam_client
 
 version: 0.1.0
