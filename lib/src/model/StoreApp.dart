@@ -1,17 +1,30 @@
 
 import 'package:intl/intl.dart';
 
+/// A game or app in the Steam store.
 class StoreApp {
 
-  String steamId;
+  /// The id of the game or app as listed in the Steam store.
+  String appId;
+
+  /// The name of the game or app.
   String name;
+
+  /// The date the game or app was released.
   DateTime releaseDate;
+
+  /// A list of developers of the game or app..
   List<String> developers;
+
+  /// A list of publishers of the game or app.
   List<String> publishers;
+
+  /// URL of the header image of the game or app as displayed on the store page
+  /// of the game or app.
   String headerImageUrl;
 
   StoreApp({
-    this.steamId,
+    this.appId,
     this.name,
     this.releaseDate,
     this.developers,
@@ -19,9 +32,10 @@ class StoreApp {
     this.headerImageUrl,
   });
 
+  /// Instantiate a [StoreApp] using the data returned by the Steam API.
   StoreApp.fromJsonData(dynamic jsonData) {
 
-    steamId = jsonData['steam_appid'].toString();
+    appId = jsonData['steam_appid'].toString();
     name = jsonData['name'];
     releaseDate = DateFormat('dd MMM, yyyy', 'en_US').parse(jsonData['release_date']['date']);
     developers = [...jsonData['developers']];

@@ -1,4 +1,5 @@
 
+/// A client library for the Steam Web API.
 library steam_client;
 
 export 'src/SteamClient.dart';

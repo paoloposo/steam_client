@@ -2,10 +2,21 @@
 import 'package:steam_client/map_cache.dart';
 import 'package:steam_client/steam_client.dart';
 
+/// A drop-in replacement for [SteamClient] that wraps the client in a simple
+/// cache layer.
+///
+/// Uses the [map_cache] library to provide caching functionality.
+///
+/// Currently, the following types of resources are cached:
+/// - [CommunityProfile]
+/// - [CommunityGroup]
 class CachedSteamClient extends SteamClient {
 
-  MapCache<String, CommunityProfile> profilesCache;
-  MapCache<String, CommunityGroup> groupsCache;
+  /// Cache for retrieved [CommunityProfile] objects.
+  MapCache<String, CommunityProfile> _profilesCache;
+
+  /// Cache for retrieved [CommunityGroup] objects.
+  MapCache<String, CommunityGroup> _groupsCache;
 
   CachedSteamClient({
     String apiKey,
@@ -14,8 +25,8 @@ class CachedSteamClient extends SteamClient {
     apiKey: apiKey,
     useLegacyApi: useLegacyApi,
   ) {
-   profilesCache = MapCache((ids) async => await super.getProfiles(ids));
-   groupsCache = MapCache((ids) async {
+   _profilesCache = MapCache((ids) async => await super.getProfiles(ids));
+   _groupsCache = MapCache((ids) async {
        var futures = ids.map((id) => super.getGroup(id: id)).toList();
        return Future.wait(futures);
      });
@@ -23,7 +34,7 @@ class CachedSteamClient extends SteamClient {
 
   @override
   Future<List<CommunityProfile>> getProfiles(List<String> profileIds) async {
-    return profilesCache.getMultiple(profileIds);
+    return _profilesCache.getMultiple(profileIds);
   }
 
   @override
@@ -33,13 +44,13 @@ class CachedSteamClient extends SteamClient {
     assert((name != null) != (id != null));
 
     if (id != null) {
-      return groupsCache.get(id);
+      return _groupsCache.get(id);
     }
     else {
-      var group = groupsCache.cache.values.singleWhere((element) => element.uniqueName == name, orElse: () => null);
+      var group = _groupsCache.cache.values.singleWhere((element) => element.uniqueName == name, orElse: () => null);
       if (group == null) {
         group = await super.getGroup(name: name);
-        groupsCache.cache[group.steamId] = group;
+        _groupsCache.cache[group.steamId] = group;
       }
       return group;
     }
