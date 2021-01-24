@@ -1,22 +1,14 @@
-A library for Dart developers.
+A client library for the Steam web API.
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+**Caution:** This library is in the very early stages of its development.
+Code API is subject to change. Use with caution.
 
 ## Usage
 
-A simple usage example:
-
-```dart
-import 'package:steam_client/steam_client.dart';
-
-main() {
-  var awesome = new Awesome();
-}
-```
+TODO.
 
 ## Features and bugs
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 
-[tracker]: http://example.com/issues/replaceme
+[tracker]: https://github.com/paoloposo/steam_client/issues
