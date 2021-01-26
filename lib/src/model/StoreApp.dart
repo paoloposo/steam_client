@@ -1,7 +1,11 @@
 
 import 'package:intl/intl.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'StoreApp.g.dart';
 
 /// A game or app in the Steam store.
+@JsonSerializable()
 class StoreApp {
 
   /// The id of the game or app as listed in the Steam store.
@@ -33,7 +37,7 @@ class StoreApp {
   });
 
   /// Instantiate a [StoreApp] using the data returned by the Steam API.
-  StoreApp.fromJsonData(dynamic jsonData) {
+  StoreApp.fromSteamJson(dynamic jsonData) {
 
     appId = jsonData['steam_appid'].toString();
     name = jsonData['name'];
@@ -42,4 +46,8 @@ class StoreApp {
     publishers = [...jsonData['publishers']];
     headerImageUrl = jsonData['header_image'];
   }
+
+  factory StoreApp.fromJson(Map<String, dynamic> json) => _$StoreAppFromJson(json);
+
+  Map<String, dynamic> toJson() => _$StoreAppToJson(this);
 }

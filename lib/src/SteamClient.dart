@@ -46,7 +46,7 @@ class SteamClient {
         var requestUrl = 'https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$apiKey&steamids=${chunk.join(',')}';
         var response = await http.get(requestUrl);
         dynamic jsonData = jsonDecode(response.body);
-        profiles.addAll(jsonData['response']['players'].map<CommunityProfile>((profileData) => CommunityProfile.fromJsonData(profileData)));
+        profiles.addAll(jsonData['response']['players'].map<CommunityProfile>((profileData) => CommunityProfile.fromSteamJson(profileData)));
       });
       return profiles;
     }
@@ -54,7 +54,7 @@ class SteamClient {
       var futures = profileIds.map((profileId) async {
         var requestUrl = 'https://steamcommunity.com/profiles/$profileIds/?xml=1';
         var response = await http.get(requestUrl);
-        return CommunityProfile.fromXmlString(response.body);
+        return CommunityProfile.fromSteamXml(response.body);
       });
       return Future.wait(futures);
     }
@@ -94,7 +94,7 @@ class SteamClient {
 
     var response = await http.get(requestUrl);
 
-    return CommunityGroup.fromXmlString(response.body);
+    return CommunityGroup.fromSteamXml(response.body);
   }
 
   /// Get information about an app in the Steam store.
@@ -103,6 +103,6 @@ class SteamClient {
     var response = await http.get(requestUrl);
     dynamic jsonData = jsonDecode(response.body);
 
-    return StoreApp.fromJsonData(jsonData[id]['data']);
+    return StoreApp.fromSteamJson(jsonData[id]['data']);
   }
 }

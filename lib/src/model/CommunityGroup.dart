@@ -1,9 +1,13 @@
 
+import 'package:json_annotation/json_annotation.dart';
 import 'package:xml/xml.dart';
 
 import 'CommunityAvatar.dart';
 
+part 'CommunityGroup.g.dart';
+
 /// A group in the Steam community.
+@JsonSerializable(explicitToJson: true)
 class CommunityGroup {
 
   /// Steam ID of the group.
@@ -57,7 +61,7 @@ class CommunityGroup {
 
   /// Instantiate a [CommunityGroup] using the data returned by the legacy Steam
   /// API.
-  CommunityGroup.fromXmlString(String xmlString) {
+  CommunityGroup.fromSteamXml(String xmlString) {
 
     var data = XmlDocument.parse(xmlString);
 
@@ -79,4 +83,8 @@ class CommunityGroup {
     membersOnline = int.parse(details.getElement('membersOnline').text);
     memberIds = root.getElement('members').findElements('steamID64').map((e) => e.text).toList();
   }
+
+  factory CommunityGroup.fromJson(Map<String, dynamic> json) => _$CommunityGroupFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CommunityGroupToJson(this);
 }

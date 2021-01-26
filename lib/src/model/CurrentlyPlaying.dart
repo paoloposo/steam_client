@@ -1,5 +1,10 @@
 
+import 'package:json_annotation/json_annotation.dart';
+
+part 'CurrentlyPlaying.g.dart';
+
 /// Information about the game a user is currently playing.
+@JsonSerializable(explicitToJson: true)
 class CurrentlyPlaying {
 
   /// The Steam store ID of the game the user currently plays.
@@ -15,4 +20,8 @@ class CurrentlyPlaying {
   String extraInfo;
 
   CurrentlyPlaying({this.appId, this.server, this.extraInfo});
+
+  factory CurrentlyPlaying.fromJson(Map<String, dynamic> json) => _$CurrentlyPlayingFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CurrentlyPlayingToJson(this);
 }

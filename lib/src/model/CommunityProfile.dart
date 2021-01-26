@@ -1,6 +1,10 @@
 
+import 'package:json_annotation/json_annotation.dart';
+
 import 'CommunityAvatar.dart';
 import 'CurrentlyPlaying.dart';
+
+part 'CommunityProfile.g.dart';
 
 /// Privacy setting of a Steam profile.
 ///
@@ -23,6 +27,7 @@ enum OnlineState {
 }
 
 /// A Steam profile.
+@JsonSerializable(explicitToJson: true)
 class CommunityProfile {
 
   /// The Steam ID of the profile.
@@ -83,7 +88,7 @@ class CommunityProfile {
 
   /// Instantiate a [CommunityProfile] using the data returned by the Steam Web
   /// API.
-  CommunityProfile.fromJsonData(dynamic jsonData) {
+  CommunityProfile.fromSteamJson(dynamic jsonData) {
 
     steamId = jsonData['steamid'];
     displayName = jsonData['personaname'];
@@ -111,8 +116,12 @@ class CommunityProfile {
 
   /// Instantiate a [CommunityProfile] using the data returned by the legacy
   /// Steam API.
-  CommunityProfile.fromXmlString(String xmlString) {
+  CommunityProfile.fromSteamXml(String xmlString) {
 
     throw UnsupportedError('not yet supported');
   }
+
+  factory CommunityProfile.fromJson(Map<String, dynamic> json) => _$CommunityProfileFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CommunityProfileToJson(this);
 }

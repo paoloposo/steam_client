@@ -1,5 +1,10 @@
 
+import 'package:json_annotation/json_annotation.dart';
+
+part 'CommunityFriend.g.dart';
+
 /// An entry in the friends list of a Steam profile.
+@JsonSerializable(explicitToJson: true)
 class CommunityFriend {
 
   /// Steam ID of the friend's profile.
@@ -20,4 +25,8 @@ class CommunityFriend {
     steamId = jsonData['steamid'];
     friendSince = DateTime.fromMillisecondsSinceEpoch(jsonData['friend_since']*1000);
   }
+
+  factory CommunityFriend.fromJson(Map<String, dynamic> json) => _$CommunityFriendFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CommunityFriendToJson(this);
 }
