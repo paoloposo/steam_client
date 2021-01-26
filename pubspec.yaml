@@ -2,7 +2,7 @@ name: steam_client
 description: A client library for getting community and store resources from the Steam Web API.
 repository: https://github.com/paoloposo/steam_client
 
-version: 0.1.1
+version: 0.1.2
 
 environment:
   sdk: '>=2.10.0 <3.0.0'
