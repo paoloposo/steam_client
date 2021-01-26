@@ -3,9 +3,9 @@ import 'package:steam_client/steam_client.dart';
 void main() async {
   // Put your API key here.
   // API keys can be obtained at https://steamcommunity.com/dev/apikey.
-  const apiKey = 'YOUR_STEAM_KEY_HERE';
+  const apiKey = 'YOUR_API_KEY_HERE';
 
-  // instantiate a client object with an api key
+  // Instantiate a client object with an api key.
   var steamClient = SteamClient(apiKey: apiKey);
 
   // Get a profile by id and print the display name and avatar URL.
